@@ -5,15 +5,22 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
+        <h:outputStylesheet name="styles.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <p:panelGrid columns="2">
-            <h:outputLabel for="nome" value="Nome"></h:outputLabel>
-            <p:inputText id="nome"></p:inputText>
-            <h:outputLabel for="sobrenome" value="Sobre Nome"></h:outputLabel>
-            <p:inputText id="sobrenome"></p:inputText>
-            <p:button value="Enviar" ></p:button>
-        </p:panelGrid>
+        <h:form>
+            <p:panelGrid columns="2" styleClass="responsive-grid">
+                <h:outputLabel for="nome" value="Nome"></h:outputLabel>
+                <p:inputText id="nome" value="#{nomeBean.nome}" styleClass="responsive-input"></p:inputText>
+                
+                <h:outputLabel for="sobrenome" value="Sobre Nome"></h:outputLabel>
+                <p:inputText id="sobrenome" value="#{nomeBean.sobreNome}" styleClass="responsive-input"></p:inputText>
+                
+                
+                <p:commandButton value="Envivar" action="#{nomeBean.dizerOla()}" update="Mensagem" styleClass="responsive-button"></p:commandButton>
+                <h:outputLabel id="Mensagem" value="#{nomeBean.mensagem}" styleClass="responsive-message"></h:outputLabel>
+            </p:panelGrid>
+        </h:form>
     </h:body>
 </html>
-
