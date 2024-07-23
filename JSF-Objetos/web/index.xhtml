@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="Adcionar Carro" action="#{carroBean.adicionarCarro()}" update="@form"></p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:fieldset>
+                <p:panelGrid columns="4">
+                    <h:outputLabel value="Modelo"></h:outputLabel>
+                    <p:inputText value="#{carroBean.carro.modelo}"></p:inputText>
+
+                    <h:outputLabel value="Fabricante"></h:outputLabel>
+                    <p:inputText value="#{carroBean.carro.fabricante}"></p:inputText>
+
+                    <h:outputLabel value="Cor"></h:outputLabel>
+                    <p:inputText value="#{carroBean.carro.cor}"></p:inputText>
+
+                    <h:outputLabel value="Ano"></h:outputLabel>
+                    <p:inputMask mask="9999" value="#{carroBean.carro.ano}"></p:inputMask>
+                </p:panelGrid> 
+            </p:fieldset>
+
+            <p:dataTable value="#{carroBean.carros}" var="carro">
+                <p:column headerText="Modelo">
+                    <h:outputText value="#{carro.modelo}"></h:outputText>
+                </p:column>
+
+                <p:column headerText="Fabricante">
+                    <h:outputText value="#{carro.fabricante}"></h:outputText>
+                </p:column>
+
+                <p:column headerText="Cor">
+                    <h:outputText value="#{carro.cor}"></h:outputText>
+                </p:column>
+
+                <p:column headerText="Ano">
+                    <h:outputText value="#{carro.ano}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+    </h:body>
+</html>
+
