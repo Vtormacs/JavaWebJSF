@@ -22,13 +22,22 @@
                     <p:inputText value="#{carroBean.carro.cor}"></p:inputText>
 
                     <h:outputLabel value="Ano"></h:outputLabel>
-                    <p:inputMask mask="9999" value="#{carroBean.carro.ano}"></p:inputMask>
+                    <p:calendar value="#{carroBean.carro.ano}"></p:calendar>
                 </p:panelGrid> 
             </p:fieldset>
 
-            <p:commandButton value="Adcionar Carro" action="#{carroBean.adicionarCarro()}" update="@form"></p:commandButton>
+            <p:commandButton value="Salvar" action="#{carroBean.salvarCarro()}" update="@form"></p:commandButton>
+            <p:commandButton value="Listar Carros" action="#{carroBean.listarCarro()}" update="@form"></p:commandButton>
 
             <p:dataTable value="#{carroBean.carros}" var="carro">
+                <p:column>
+                    <p:commandButton value="Editar" action="#{carroBean.editarCarro(carro)}" update="@form"></p:commandButton>
+                </p:column>
+                
+                <p:column headerText="Id">
+                    <h:outputText value="#{carro.id}"></h:outputText>
+                </p:column>
+
                 <p:column headerText="Modelo">
                     <h:outputText value="#{carro.modelo}"></h:outputText>
                 </p:column>

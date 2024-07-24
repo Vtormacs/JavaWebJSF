@@ -1,12 +1,24 @@
 package Entity;
 
+import java.util.Date;
+import java.util.Objects;
+
 public class Carro {
 
+    private Integer id;
     private String modelo;
     private String fabricante;
     private String cor;
-    private int ano;
+    private Date ano;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }    
+    
     public String getModelo() {
         return modelo;
     }
@@ -31,11 +43,37 @@ public class Carro {
         this.cor = cor;
     }
 
-    public int getAno() {
+    public Date getAno() {
         return ano;
     }
 
-    public void setAno(int ano) {
+    public void setAno(Date ano) {
         this.ano = ano;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Carro other = (Carro) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+    
 }
