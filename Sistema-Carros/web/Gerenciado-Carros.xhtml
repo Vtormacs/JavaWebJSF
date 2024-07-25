@@ -10,34 +10,38 @@
         <h2>Bem Vindo ao Sistema</h2>
 
         <h:form>
+            
+            <p:messages showDetail="true"></p:messages>
+            
             <p:fieldset>
-                <p:panelGrid columns="4">
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Novo" action="#{carroBean.novo()}" update="@form"></p:commandButton>
+                        <p:commandButton value="Salvar" action="#{carroBean.salvar()}" disabled="#{carroBean.busca == true}" update="@form"></p:commandButton>
+                        <p:commandButton value="Listar Carros" action="#{carroBean.buscar()}" update="@form"></p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:panelGrid columns="4" rendered="#{carroBean.busca == false}">
                     <h:outputLabel value="Modelo"></h:outputLabel>
-                    <p:inputText value="#{carroBean.carro.modelo}"></p:inputText>
+                    <p:inputText value="#{carroBean.entidade.modelo}"></p:inputText>
 
                     <h:outputLabel value="Fabricante"></h:outputLabel>
-                    <p:inputText value="#{carroBean.carro.fabricante}"></p:inputText>
+                    <p:inputText value="#{carroBean.entidade.fabricante}"></p:inputText>
 
                     <h:outputLabel value="Cor"></h:outputLabel>
-                    <p:inputText value="#{carroBean.carro.cor}"></p:inputText>
+                    <p:inputText value="#{carroBean.entidade.cor}"></p:inputText>
 
                     <h:outputLabel value="Ano"></h:outputLabel>
-                    <p:calendar value="#{carroBean.carro.ano}"></p:calendar>
+                    <p:calendar value="#{carroBean.entidade.ano}"></p:calendar>
                 </p:panelGrid> 
+
             </p:fieldset>
 
-            <p:toolbar>
-                <p:toolbarGroup>
-                    <p:commandButton value="Salvar" action="#{carroBean.salvarCarro()}" update="@form"></p:commandButton>
-                    <p:commandButton value="Listar Carros" action="#{carroBean.listarCarro()}" update="@form"></p:commandButton>
-                </p:toolbarGroup>
-            </p:toolbar>
-
-            <p:messages showDetail="true"></p:messages>
-
-            <p:dataTable value="#{carroBean.carros}" var="carro">
+            <p:dataTable value="#{carroBean.entidades}" var="carro" rendered="#{carroBean.busca == true}">
                 <p:column>
-                    <p:commandButton value="Editar" action="#{carroBean.editarCarro(carro)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Editar" action="#{carroBean.editar(carro)}" update="@form"></p:commandButton>
                     <p:commandButton value="Deletar" action="#{carroBean.deletar(carro)}" update="@form"></p:commandButton>
                 </p:column>
 

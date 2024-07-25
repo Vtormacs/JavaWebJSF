@@ -2,21 +2,17 @@ package DAO;
 
 import Entity.Carro;
 import Util.ErroSistema;
-import com.mysql.cj.xdevapi.PreparableStatement;
-import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.Date;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
+public class CarroDAO implements CrudDAO<Carro>{
 
-public class CarroDAO {
-
+    @Override
     public void salvar(Carro obj) throws ErroSistema {
         try {
             Connection conexao = ConexaoBanco.getConexao();
@@ -42,14 +38,15 @@ public class CarroDAO {
         }
     }
 
-    public void deletar(Integer idCarro) throws ErroSistema {
+    @Override
+    public void deletar(Carro carro) throws ErroSistema {
         try {
             Connection conexao = ConexaoBanco.getConexao();
-            
-             PreparedStatement ps = conexao.prepareStatement("DELETE FROM carros WHERE id = ?");
-            
-            ps.setInt(1, idCarro);
-            
+
+            PreparedStatement ps = conexao.prepareStatement("DELETE FROM carros WHERE id = ?");
+
+            ps.setInt(1, carro.getId());
+
             ps.execute();
 
         } catch (SQLException ex) {
@@ -57,7 +54,8 @@ public class CarroDAO {
         }
     }
 
-    public List<Carro> listar() throws ErroSistema {
+    @Override
+    public List<Carro> buscar() throws ErroSistema {
         try {
             Connection conexao = ConexaoBanco.getConexao();
 

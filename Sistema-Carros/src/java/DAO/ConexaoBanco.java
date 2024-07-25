@@ -10,7 +10,7 @@ public class ConexaoBanco {
     private static Connection conexao;
     private static final String url = "jdbc:mysql://localhost/sistema-carro";
     private static final String user = "root";
-    private static final String senha = "159808";
+    private static final String senha = "12345";
 
     public static Connection getConexao() throws ErroSistema {
         if (conexao == null) {
