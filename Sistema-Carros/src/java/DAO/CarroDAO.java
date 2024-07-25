@@ -1,6 +1,8 @@
 package DAO;
 
 import Entity.Carro;
+import Util.ErroSistema;
+import com.mysql.cj.xdevapi.PreparableStatement;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.Date;
@@ -15,14 +17,14 @@ import javax.swing.JOptionPane;
 
 public class CarroDAO {
 
-    public void salvar(Carro obj) {
+    public void salvar(Carro obj) throws ErroSistema {
         try {
             Connection conexao = ConexaoBanco.getConexao();
             PreparedStatement ps;
 
             if (obj.getId() == null) {
                 ps = conexao.prepareStatement("INSERT INTO carros (modelo, fabricante, cor, ano) VALUES (?,?,?,?)");
-            }else{
+            } else {
                 ps = conexao.prepareStatement("UPDATE carros SET modelo = ?, fabricante = ?, cor = ?, ano = ? WHERE id = ?");
                 ps.setInt(5, obj.getId());
             }
@@ -35,14 +37,27 @@ public class CarroDAO {
             ps.execute();
             ConexaoBanco.fecharConexao();
 
-            JOptionPane.showMessageDialog(null, "Carro salvo com sucesso!!");
-
-        } catch (HeadlessException | SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar o Carro!!" + erro);
+        } catch (SQLException ex) {
+            throw new ErroSistema("Erro ao salvar carro", ex);
         }
     }
 
-    public List<Carro> listar() {
+    public void deletar(Integer idCarro) throws ErroSistema {
+        try {
+            Connection conexao = ConexaoBanco.getConexao();
+            
+             PreparedStatement ps = conexao.prepareStatement("DELETE FROM carros WHERE id = ?");
+            
+            ps.setInt(1, idCarro);
+            
+            ps.execute();
+
+        } catch (SQLException ex) {
+            throw new ErroSistema("Erro ao excluir carro", ex);
+        }
+    }
+
+    public List<Carro> listar() throws ErroSistema {
         try {
             Connection conexao = ConexaoBanco.getConexao();
 
@@ -65,12 +80,10 @@ public class CarroDAO {
 
                 lista.add(obj);
             }
-            JOptionPane.showMessageDialog(null, "Lista de Carros Listada!!");
             ConexaoBanco.fecharConexao();
             return lista;
-        } catch (HeadlessException | SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao Listar os Carros!!" + erro);
+        } catch (SQLException ex) {
+            throw new ErroSistema("Erro ao listar carros", ex);
         }
-        return null;
     }
 }

@@ -26,14 +26,21 @@
                 </p:panelGrid> 
             </p:fieldset>
 
-            <p:commandButton value="Salvar" action="#{carroBean.salvarCarro()}" update="@form"></p:commandButton>
-            <p:commandButton value="Listar Carros" action="#{carroBean.listarCarro()}" update="@form"></p:commandButton>
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="Salvar" action="#{carroBean.salvarCarro()}" update="@form"></p:commandButton>
+                    <p:commandButton value="Listar Carros" action="#{carroBean.listarCarro()}" update="@form"></p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:messages showDetail="true"></p:messages>
 
             <p:dataTable value="#{carroBean.carros}" var="carro">
                 <p:column>
                     <p:commandButton value="Editar" action="#{carroBean.editarCarro(carro)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{carroBean.deletar(carro)}" update="@form"></p:commandButton>
                 </p:column>
-                
+
                 <p:column headerText="Id">
                     <h:outputText value="#{carro.id}"></h:outputText>
                 </p:column>
