@@ -25,16 +25,16 @@ public class ConexaoBanco {
         }
         return conexao;
     }
-    
-     public static void fecharConexao() throws ErroSistema{
-         if(conexao != null){
-             try {
-                 conexao.close();
-                 conexao = null;
-             } catch (SQLException ex) {
-                 throw new ErroSistema("Erro ao fechar a conexão com banco", ex);
-             }         
-         }
-     }
+
+    public static void fecharConexao() throws ErroSistema {
+        if (conexao != null) {
+            try {
+                conexao.close();
+                conexao = null;
+            } catch (SQLException ex) {
+                throw new ErroSistema("Erro ao fechar a conexão com banco", ex);
+            }
+        }
+    }
 
 }

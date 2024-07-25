@@ -7,13 +7,12 @@
              template="template.xhtml">
 
     <ui:define name="corpo">
-        <h2>Bem Vindo ao Sistema</h2>
 
         <h:form>
-            
+
             <p:messages showDetail="true"></p:messages>
-            
-            <p:fieldset>
+
+            <p:fieldset legend="Gerenciar Carro">
 
                 <p:toolbar>
                     <p:toolbarGroup>
@@ -22,6 +21,7 @@
                         <p:commandButton value="Listar Carros" action="#{carroBean.buscar()}" update="@form"></p:commandButton>
                     </p:toolbarGroup>
                 </p:toolbar>
+
 
                 <p:panelGrid columns="4" rendered="#{carroBean.busca == false}">
                     <h:outputLabel value="Modelo"></h:outputLabel>
@@ -37,36 +37,37 @@
                     <p:calendar value="#{carroBean.entidade.ano}"></p:calendar>
                 </p:panelGrid> 
 
+                <p:dataTable value="#{carroBean.entidades}" var="carro" rendered="#{carroBean.busca == true}">
+                    <p:column>
+                        <p:commandButton value="Editar" action="#{carroBean.editar(carro)}" update="@form"></p:commandButton>
+                        <p:commandButton value="Deletar" action="#{carroBean.deletar(carro)}" update="@form"></p:commandButton>
+                    </p:column>
+
+                    <p:column headerText="Id">
+                        <h:outputText value="#{carro.id}"></h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Modelo">
+                        <h:outputText value="#{carro.modelo}"></h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Fabricante">
+                        <h:outputText value="#{carro.fabricante}"></h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Cor">
+                        <h:outputText value="#{carro.cor}"></h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Ano">
+                        <h:outputText value="#{carro.ano}"></h:outputText>
+                    </p:column>
+                </p:dataTable>
+
             </p:fieldset>
 
-            <p:dataTable value="#{carroBean.entidades}" var="carro" rendered="#{carroBean.busca == true}">
-                <p:column>
-                    <p:commandButton value="Editar" action="#{carroBean.editar(carro)}" update="@form"></p:commandButton>
-                    <p:commandButton value="Deletar" action="#{carroBean.deletar(carro)}" update="@form"></p:commandButton>
-                </p:column>
-
-                <p:column headerText="Id">
-                    <h:outputText value="#{carro.id}"></h:outputText>
-                </p:column>
-
-                <p:column headerText="Modelo">
-                    <h:outputText value="#{carro.modelo}"></h:outputText>
-                </p:column>
-
-                <p:column headerText="Fabricante">
-                    <h:outputText value="#{carro.fabricante}"></h:outputText>
-                </p:column>
-
-                <p:column headerText="Cor">
-                    <h:outputText value="#{carro.cor}"></h:outputText>
-                </p:column>
-
-                <p:column headerText="Ano">
-                    <h:outputText value="#{carro.ano}"></h:outputText>
-                </p:column>
-            </p:dataTable>
-
         </h:form>
+
     </ui:define>
 
 </ui:decorate>

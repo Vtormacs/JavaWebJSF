@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template.xhtml"
+             xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="corpo">
+
+        <h:form>
+
+            <p:messages showDetail="true"></p:messages>
+
+            <p:fieldset legend="Gerenciar Usuário">
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Novo" action="#{usuarioBean.novo()}" update="@form"></p:commandButton>
+                        <p:commandButton value="Salvar" action="#{usuarioBean.salvar()}" disabled="#{usuarioBean.busca == true}" update="@form"></p:commandButton>
+                        <p:commandButton value="Listar Usuarios" action="#{usuarioBean.buscar()}" update="@form"></p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+
+                <p:panelGrid columns="2" rendered="#{usuarioBean.busca == false}">
+                    <h:outputLabel value="Login"></h:outputLabel>
+                    <p:inputText value="#{usuarioBean.entidade.login}"></p:inputText>
+
+                    <h:outputLabel value="Senha"></h:outputLabel>
+                    <p:password value="#{usuarioBean.entidade.senha}"></p:password>
+                </p:panelGrid>
+
+                <p:dataTable value="#{usuarioBean.entidades}" var="usuario" rendered="#{usuarioBean.busca == true}">
+                    <p:column>
+                        <p:commandButton value="Editar" action="#{usuarioBean.editar(usuario)}" update="@form"></p:commandButton>
+                        <p:commandButton value="Deletar" action="#{usuarioBean.deletar(usuario)}" update="@form"></p:commandButton>
+                    </p:column>
+
+                    <p:column headerText="Id">
+                        <h:outputText value="#{usuario.id}"></h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Login">
+                        <h:outputText value="#{usuario.login}"></h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Senha">
+                        <h:outputText value="#{usuario.senha}"></h:outputText>
+                    </p:column>
+
+                </p:dataTable>
+
+            </p:fieldset>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:decorate>

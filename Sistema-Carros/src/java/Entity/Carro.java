@@ -17,8 +17,8 @@ public class Carro {
 
     public void setId(Integer id) {
         this.id = id;
-    }    
-    
+    }
+
     public String getModelo() {
         return modelo;
     }
@@ -75,5 +75,5 @@ public class Carro {
         }
         return true;
     }
-    
+
 }
